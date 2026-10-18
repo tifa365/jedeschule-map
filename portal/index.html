@@ -34,6 +34,30 @@
       #accordion-container-layer-info-contact {
         display: none;
       }
+      /* jedeschule.de navy (#131167) instead of Masterportal's green */
+      :root {
+        --bs-primary: #131167;
+        --bs-primary-rgb: 19, 17, 103;
+      }
+      .btn-primary {
+        --bs-btn-color: #ffffff !important;
+        --bs-btn-bg: #131167 !important;
+        --bs-btn-border-color: #131167 !important;
+        --bs-btn-hover-color: #ffffff !important;
+        --bs-btn-hover-bg: #2b2a8a !important;
+        --bs-btn-hover-border-color: #2b2a8a !important;
+        --bs-btn-active-color: #ffffff !important;
+        --bs-btn-active-bg: #0c0b4a !important;
+        --bs-btn-active-border-color: #0c0b4a !important;
+        --bs-btn-disabled-color: #ffffff !important;
+        --bs-btn-disabled-bg: #131167 !important;
+        --bs-btn-disabled-border-color: #131167 !important;
+        --bs-btn-disabled-opacity: 1 !important;
+      }
+      .form-check-input:checked {
+        background-color: #131167;
+        border-color: #131167;
+      }
       /* The secondary menu only shows school details (opened by clicking the map),
          so its toggle button with the tools icon is not needed */
       #secondaryMenu-toggle-button {

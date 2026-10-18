@@ -23,6 +23,9 @@ and stripped of everything Berlin-specific.
 - Layout follows the Berlin gärtnert portal: the round JedeSchule.de logo centred at
   the top (`resources/img/logo_jedeschule.png`), menu split into tools, share and project sections, About
   page with picture and a "how to use" part, no opacity slider in the layer tree.
+- Colours: the navy of jedeschule.de (`#131167`) for cluster circles, the selection
+  highlight (`style_v3.json`, `config.json`) and buttons and checkboxes (CSS overrides
+  in `index.html`).
 
 ## Quickstart
 

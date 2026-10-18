@@ -74,5 +74,19 @@
       type="text/javascript"
       src="./mastercode/3_7_0/js/masterportal.js"
     ></script>
+    <script>
+      // Hand cursor over schools and cluster circles. Waits until Masterportal has
+      // created the map, then checks the hovered pixel on each pointer move.
+      (function waitForMap() {
+        const map = window.mapCollection && window.mapCollection.getMap("2D");
+        if (!map) return setTimeout(waitForMap, 300);
+        const isSchools = (layer) => layer && layer.get("id") === "schulen";
+        map.on("pointermove", (evt) => {
+          if (evt.dragging) return;
+          const hit = map.hasFeatureAtPixel(evt.pixel, { layerFilter: isSchools });
+          map.getViewport().style.cursor = hit ? "pointer" : "";
+        });
+      })();
+    </script>
   </body>
 </html>

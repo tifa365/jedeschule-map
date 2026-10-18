@@ -20,8 +20,8 @@ and stripped of everything Berlin-specific.
 - No measuring or coordinate tools. The secondary menu (right side) only holds the
   school details opened by clicking the map, so its toggle button is hidden in
   `index.html`.
-- Layout follows the Berlin gärtnert portal: wordmark logo (`resources/img/logo.svg`,
-  the 🏫 icon plus text), menu split into tools, share and project sections, About
+- Layout follows the Berlin gärtnert portal: the round JedeSchule.de logo centred at
+  the top (`resources/img/logo_jedeschule.png`), menu split into tools, share and project sections, About
   page with picture and a "how to use" part, no opacity slider in the layer tree.
 
 ## Quickstart
@@ -203,6 +203,9 @@ While testing, roughly a quarter of headless loads never showed any schools. Fin
   (Apache-2.0). `make icon` downloads it again and adds `width`/`height`, without which
   Firefox does not draw it on the canvas.
 - Masterportal: Geowerkstatt Hamburg, MIT.
+- Round logo: JedeSchule.de (Datenschule / OKF DE), taken from
+  `https://jedeschule.de/assets/img/favicons/android-chrome-192x192.png`. Clarify its
+  use with the project before publishing the map.
 
 ## Possible next steps
 

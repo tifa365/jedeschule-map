@@ -16,8 +16,14 @@
     <link rel="stylesheet" href="./mastercode/3_7_0/css/masterportal.css" />
     <style>
       /* Layout tweaks taken over from the Berlin gärtnert portal */
+      .mp-menu-logo {
+        justify-content: center !important;
+      }
       .mp-menu-logo img {
         max-height: 100px !important;
+      }
+      .mp-menu-logo h1:empty {
+        display: none; /* no title text, so the round logo is centred */
       }
       .layer-component-icon-sub-menu { /* no opacity slider in the layer tree */
         display: none !important;

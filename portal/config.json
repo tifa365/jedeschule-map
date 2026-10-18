@@ -139,9 +139,9 @@
       "expanded": true,
       "title": {
         "text": "",
-        "logo": "./resources/img/logo.svg",
-        "link": "https://jedeschule.codefor.de",
-        "toolTip": "Jede Schule – Karte aller Schulen in Deutschland"
+        "logo": "./resources/img/logo_jedeschule.png",
+        "link": "https://jedeschule.de",
+        "toolTip": "JedeSchule.de"
       },
       "searchBar": {
         "placeholder": "Schule oder Adresse suchen",

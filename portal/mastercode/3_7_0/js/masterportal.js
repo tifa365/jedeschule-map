@@ -353114,6 +353114,34 @@ Make sure your charset is UTF-8`
           dispatch: O,
           rootGetters: P,
         }) {
+          /* jedeschule-map patch: a click on a cluster circle zooms in to split it
+             instead of opening the feature info. Falls through to the feature info
+             at maximum zoom or when all clustered points share one location. */
+          {
+            const cm = mapCollection.getMap("2D"),
+              cpx = P["Maps/clickPixel"],
+              cview = cm && cm.getView();
+            let members = null;
+            P["Maps/mode"] === "2D" &&
+              cm &&
+              cpx &&
+              cm.forEachFeatureAtPixel(cpx, (f) => {
+                const fs = f.get("features");
+                return Array.isArray(fs) && fs.length > 1 ? ((members = fs), !0) : void 0;
+              });
+            if (members && cview.getZoom() < cview.getMaxZoom()) {
+              const ext = [Infinity, Infinity, -Infinity, -Infinity];
+              members.forEach((f) => {
+                const e = f.getGeometry().getExtent();
+                (ext[0] = Math.min(ext[0], e[0])), (ext[1] = Math.min(ext[1], e[1])),
+                  (ext[2] = Math.max(ext[2], e[2])), (ext[3] = Math.max(ext[3], e[3]));
+              });
+              if (ext[2] - ext[0] > 1 || ext[3] - ext[1] > 1) {
+                cview.fit(ext, { padding: [80, 80, 80, 80], duration: 400 });
+                return;
+              }
+            }
+          }
           const p = P["Maps/clickCoordinate"],
             b = P["Maps/resolution"],
             E = P["Maps/projection"],

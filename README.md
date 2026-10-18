@@ -125,9 +125,9 @@ build. Edit the text around the spans freely, but keep the spans.
 
 ## Patched Masterportal
 
-`portal/mastercode/3_7_0/js/masterportal.js` contains two patches, applied by
-`make patch` (`scripts/patch_mastercode.py`). Both are about filter performance with
-30k clustered points.
+`portal/mastercode/3_7_0/js/masterportal.js` contains three patches, applied by
+`make patch` (`scripts/patch_mastercode.py`). The first two are about filter
+performance with 30k clustered points, the third about clicking clusters.
 
 1. **show-features** (`showFeaturesByIds`):
    - Originally, every matching feature was changed while attached to the source.
@@ -144,6 +144,13 @@ build. Edit the text around the spans freely, but keep the spans.
      them to the map only on the last page.
    - Matching still runs in chunks of `"paging": 10000`, which keeps each blocking
      step short.
+3. **cluster-zoom** (`collectGfiFeatures`):
+   - Masterportal has no setting for this: a click on a cluster circle opened the
+     feature info for every school in it.
+   - Now a click on a circle with more than one school zooms the map to those
+     schools, so the circle splits up. At maximum zoom, or when all schools share one
+     location (several schools in one building), the feature info opens as before
+     and pages through them.
 
 Measured headless with all 30,861 schools (3 runs each):
 

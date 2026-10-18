@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Patch the bundled Masterportal 3.7.0 so the filter stays fast on large clustered layers.
+"""Patch the bundled Masterportal 3.7.0: fast filtering on large clustered layers, zoom into clusters on click.
 
     python3 scripts/patch_mastercode.py
 
-Two problems, two patches:
+Three patches:
 
 1. show-features: the vector layer's showFeaturesByIds() changed each matching feature
    while attached to the source; every change made the OpenLayers Cluster source
@@ -17,6 +17,10 @@ Two problems, two patches:
    result to the map after every page. The patched call passes "apply now" only for
    the last page, so the map is rebuilt once per filter operation while matching
    still runs in chunks (the UI stays responsive between them).
+
+3. cluster-zoom: a click on a cluster circle zooms the map to the clustered schools
+   instead of opening the feature info for all of them. At maximum zoom, or when all
+   members share one location, the feature info opens as before.
 
 Idempotent: skips patches that are applied, upgrades earlier show-features
 variants (v1, v2), and fails if a patch site is not found (e.g. after a Masterportal update).
@@ -162,12 +166,53 @@ APPLY_PATCHED = """\
             : applyNow !== !1 &&
               this.handlers.showFeaturesByIds(O.id, this.filteredIds[r]));"""
 
+CLUSTER_ORIGINAL = """\
+        collectGfiFeatures({
+          getters: d,
+          commit: h,
+          dispatch: O,
+          rootGetters: P,
+        }) {
+"""
+
+CLUSTER_PATCHED = CLUSTER_ORIGINAL + """\
+          /* jedeschule-map patch: a click on a cluster circle zooms in to split it
+             instead of opening the feature info. Falls through to the feature info
+             at maximum zoom or when all clustered points share one location. */
+          {
+            const cm = mapCollection.getMap("2D"),
+              cpx = P["Maps/clickPixel"],
+              cview = cm && cm.getView();
+            let members = null;
+            P["Maps/mode"] === "2D" &&
+              cm &&
+              cpx &&
+              cm.forEachFeatureAtPixel(cpx, (f) => {
+                const fs = f.get("features");
+                return Array.isArray(fs) && fs.length > 1 ? ((members = fs), !0) : void 0;
+              });
+            if (members && cview.getZoom() < cview.getMaxZoom()) {
+              const ext = [Infinity, Infinity, -Infinity, -Infinity];
+              members.forEach((f) => {
+                const e = f.getGeometry().getExtent();
+                (ext[0] = Math.min(ext[0], e[0])), (ext[1] = Math.min(ext[1], e[1])),
+                  (ext[2] = Math.max(ext[2], e[2])), (ext[3] = Math.max(ext[3], e[3]));
+              });
+              if (ext[2] - ext[0] > 1 || ext[3] - ext[1] > 1) {
+                cview.fit(ext, { padding: [80, 80, 80, 80], duration: 400 });
+                return;
+              }
+            }
+          }
+"""
+
 # name, patched text, known unpatched variants
 PATCHES = [
     ("show-features", SHOW_PATCHED, [SHOW_ORIGINAL, SHOW_V1, SHOW_V2]),
     ("apply-once call", CALL_PATCHED, [CALL_ORIGINAL]),
     ("apply-once signature", SIG_PATCHED, [SIG_ORIGINAL]),
     ("apply-once apply", APPLY_PATCHED, [APPLY_ORIGINAL]),
+    ("cluster-zoom", CLUSTER_PATCHED, [CLUSTER_ORIGINAL]),
 ]
 
 

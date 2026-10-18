@@ -12324,9 +12324,21 @@
         return this.source;
       }
       loadFeatures(n, i, d) {
+        /* jedeschule-map patch: cluster only the requested extent plus a margin of
+           half its size on every side, and re-cluster on zoom or when the view
+           leaves that area (OpenLayers clustered all features at every zoom). */
         var h;
-        (h = this.source) == null || h.loadFeatures(n, i, d),
-          i !== this.resolution && ((this.resolution = i), this.refresh());
+        (h = this.source) == null || h.loadFeatures(n, i, d);
+        const fin = n && n.every((v) => isFinite(v)),
+          ce = this.clusterExtent_,
+          inside = fin && ce && n[0] >= ce[0] && n[1] >= ce[1] && n[2] <= ce[2] && n[3] <= ce[3];
+        if (i !== this.resolution || (fin && !inside)) {
+          const w = fin ? (n[2] - n[0]) / 2 : 0,
+            hh = fin ? (n[3] - n[1]) / 2 : 0;
+          (this.clusterExtent_ = fin ? [n[0] - w, n[1] - hh, n[2] + w, n[3] + hh] : null),
+            (this.resolution = i),
+            this.refresh();
+        }
       }
       setDistance(n) {
         this.updateDistance(n, this.minDistance);
@@ -12359,7 +12371,9 @@
         if (this.resolution === void 0 || !this.source) return;
         const n = (0, l.createEmpty)(),
           i = this.distance * this.resolution,
-          d = this.source.getFeatures(),
+          d = this.clusterExtent_
+            ? this.source.getFeaturesInExtent(this.clusterExtent_)
+            : this.source.getFeatures(),
           h = {};
         for (let O = 0, P = d.length; O < P; O++) {
           const p = d[O];

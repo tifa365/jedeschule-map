@@ -17,8 +17,6 @@
           "clusterTextFont": "bold 12px Arial, sans-serif",
           "clusterTextScale": 1,
           "clusterTextFillColor": [255, 255, 255, 1],
-          "clusterTextStrokeColor": [0, 0, 0, 0.3],
-          "clusterTextStrokeWidth": 1,
           "clusterTextOffsetY": 1
         }
       }

@@ -125,9 +125,9 @@ build. Edit the text around the spans freely, but keep the spans.
 
 ## Patched Masterportal
 
-`portal/mastercode/3_7_0/js/masterportal.js` contains three patches, applied by
-`make patch` (`scripts/patch_mastercode.py`). The first two are about filter
-performance with 30k clustered points, the third about clicking clusters.
+`portal/mastercode/3_7_0/js/masterportal.js` contains four patches, applied by
+`make patch` (`scripts/patch_mastercode.py`). Patches 1, 2 and 4 are about
+performance with 30k clustered points, patch 3 about clicking clusters.
 
 1. **show-features** (`showFeaturesByIds`):
    - Originally, every matching feature was changed while attached to the source.
@@ -151,6 +151,21 @@ performance with 30k clustered points, the third about clicking clusters.
      schools, so the circle splits up. At maximum zoom, or when all schools share one
      location (several schools in one building), the feature info opens as before
      and pages through them.
+4. **cluster-extent** (OpenLayers `Cluster.loadFeatures` and `cluster`):
+   - OpenLayers re-clustered all 30k schools after every zoom and kept a cluster
+     feature for all of Germany (11,255 at zoom level 5). That froze the page for
+     about 1 s after each zoom and made every frame slow to draw.
+   - Now only the visible area plus half its size on each side is clustered. Moving
+     the map out of that area, or zooming, triggers a new (small) clustering.
+   - Measured headless, zooming from Germany to Berlin, 3 interleaved runs each:
+
+     | | Circles kept | Longest freeze | Map settled |
+     |---|---:|---:|---:|
+     | before | 11,255 | 1.0–1.35 s | 3.8–4.5 s |
+     | now | 328 | 0.19–0.27 s | 2.8–3.1 s |
+
+   - The rest of "settled" is mostly the basemap.de raster server, which needs about
+     1–1.6 s per tile.
 
 Measured headless with all 30,861 schools (3 runs each):
 

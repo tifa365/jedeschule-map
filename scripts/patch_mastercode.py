@@ -22,6 +22,11 @@ Three patches:
    instead of opening the feature info for all of them. At maximum zoom, or when all
    members share one location, the feature info opens as before.
 
+4. cluster-extent: OpenLayers' Cluster source re-clustered all 30k features after every
+   zoom (about 1 s) and kept ~11k cluster features for all of Germany, which made
+   every frame slow to draw. Now it clusters only the visible extent plus a margin and
+   re-clusters on zoom or when the view moves out of that area.
+
 Idempotent: skips patches that are applied, upgrades earlier show-features
 variants (v1, v2), and fails if a patch site is not found (e.g. after a Masterportal update).
 """
@@ -206,6 +211,46 @@ CLUSTER_PATCHED = CLUSTER_ORIGINAL + """\
           }
 """
 
+EXTENT_LOAD_ORIGINAL = """\
+      loadFeatures(n, i, d) {
+        var h;
+        (h = this.source) == null || h.loadFeatures(n, i, d),
+          i !== this.resolution && ((this.resolution = i), this.refresh());
+      }
+"""
+
+EXTENT_LOAD_PATCHED = """\
+      loadFeatures(n, i, d) {
+        /* jedeschule-map patch: cluster only the requested extent plus a margin of
+           half its size on every side, and re-cluster on zoom or when the view
+           leaves that area (OpenLayers clustered all features at every zoom). */
+        var h;
+        (h = this.source) == null || h.loadFeatures(n, i, d);
+        const fin = n && n.every((v) => isFinite(v)),
+          ce = this.clusterExtent_,
+          inside = fin && ce && n[0] >= ce[0] && n[1] >= ce[1] && n[2] <= ce[2] && n[3] <= ce[3];
+        if (i !== this.resolution || (fin && !inside)) {
+          const w = fin ? (n[2] - n[0]) / 2 : 0,
+            hh = fin ? (n[3] - n[1]) / 2 : 0;
+          (this.clusterExtent_ = fin ? [n[0] - w, n[1] - hh, n[2] + w, n[3] + hh] : null),
+            (this.resolution = i),
+            this.refresh();
+        }
+      }
+"""
+
+EXTENT_CLUSTER_ORIGINAL = """\
+          i = this.distance * this.resolution,
+          d = this.source.getFeatures(),
+          h = {};"""
+
+EXTENT_CLUSTER_PATCHED = """\
+          i = this.distance * this.resolution,
+          d = this.clusterExtent_
+            ? this.source.getFeaturesInExtent(this.clusterExtent_)
+            : this.source.getFeatures(),
+          h = {};"""
+
 # name, patched text, known unpatched variants
 PATCHES = [
     ("show-features", SHOW_PATCHED, [SHOW_ORIGINAL, SHOW_V1, SHOW_V2]),
@@ -213,6 +258,8 @@ PATCHES = [
     ("apply-once signature", SIG_PATCHED, [SIG_ORIGINAL]),
     ("apply-once apply", APPLY_PATCHED, [APPLY_ORIGINAL]),
     ("cluster-zoom", CLUSTER_PATCHED, [CLUSTER_ORIGINAL]),
+    ("cluster-extent load", EXTENT_LOAD_PATCHED, [EXTENT_LOAD_ORIGINAL]),
+    ("cluster-extent cluster", EXTENT_CLUSTER_PATCHED, [EXTENT_CLUSTER_ORIGINAL]),
 ]
 
 

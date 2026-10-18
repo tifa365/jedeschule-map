@@ -3,7 +3,11 @@ NOTO := https://raw.githubusercontent.com/googlefonts/noto-emoji/v2.042/svg/emoj
 # Niedersachsen coordinates from the PR #226 crawl; used automatically when present
 NI_CACHE := cache/niedersachsen.json
 
-.PHONY: data data-ni icon patch serve smoke
+.PHONY: data data-ni icon patch serve smoke deploy
+
+# Publish portal/ incl. the built data to the gh-pages branch (GitHub Pages)
+deploy:
+	sh scripts/deploy_pages.sh
 
 # Headless load check against a running server: make smoke [URL=http://127.0.0.1:8080/] [RUNS=3]
 URL ?= http://127.0.0.1:$(PORT)/

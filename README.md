@@ -27,6 +27,8 @@ and stripped of everything Berlin-specific.
   highlight (`style_v3.json`, `config.json`) and buttons and checkboxes (CSS overrides
   in `index.html`).
 
+**Live:** https://tifa365.github.io/jedeschule-map/
+
 ## Quickstart
 
 ```sh
@@ -36,6 +38,10 @@ make serve     # http://localhost:8080/
 
 `make data` also merges the Niedersachsen coordinates from `cache/niedersachsen.json`
 if that file exists, and updates the numbers in the About text.
+
+`make deploy` publishes `portal/`, including the locally built data, to the
+`gh-pages` branch, which GitHub Pages serves. The branch holds one commit that is
+replaced on every deploy. Run `make data` first to refresh the data.
 
 The portal must be served over HTTP, because Masterportal loads its config files with
 `fetch`. Opening `index.html` directly from disk does not work.

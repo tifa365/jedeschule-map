@@ -15,8 +15,23 @@
     <link rel="icon" href="./resources/img/schule.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./mastercode/3_7_0/css/masterportal.css" />
     <style>
+      /* Layout tweaks taken over from the Berlin gärtnert portal */
       .mp-menu-logo img {
-        max-height: 60px !important;
+        max-height: 100px !important;
+      }
+      .layer-component-icon-sub-menu { /* no opacity slider in the layer tree */
+        display: none !important;
+      }
+      .layerPreview[title] {
+        pointer-events: none;
+      }
+      #accordion-container-layer-info-contact {
+        display: none;
+      }
+      /* The secondary menu only shows school details (opened by clicking the map),
+         so its toggle button with the tools icon is not needed */
+      #secondaryMenu-toggle-button {
+        display: none !important;
       }
     </style>
   </head>

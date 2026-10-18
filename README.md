@@ -17,7 +17,12 @@ and stripped of everything Berlin-specific.
   status (Trägerschaft).
 - Background map: basemap.de raster WMS by default; the basemap.de vector tiles (day and
   night styles) can be switched on in the layer tree.
-- No measuring or coordinate tools; the secondary menu is empty on purpose.
+- No measuring or coordinate tools. The secondary menu (right side) only holds the
+  school details opened by clicking the map, so its toggle button is hidden in
+  `index.html`.
+- Layout follows the Berlin gärtnert portal: wordmark logo (`resources/img/logo.svg`,
+  the 🏫 icon plus text), menu split into tools, share and project sections, About
+  page with picture and a "how to use" part, no opacity slider in the layer tree.
 
 ## Quickstart
 

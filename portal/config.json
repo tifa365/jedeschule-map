@@ -8,8 +8,7 @@
         "zoom": true,
         "orientation": {
           "zoomMode": "once"
-        },
-        "fullScreen": true
+        }
       },
       "mapView": {
         "backgroundImage": "./resources/img/blank.png",
@@ -139,10 +138,10 @@
     "mainMenu": {
       "expanded": true,
       "title": {
-        "text": "Jede Schule – Karte",
-        "logo": "./resources/img/schule.svg",
+        "text": "",
+        "logo": "./resources/img/logo.svg",
         "link": "https://jedeschule.codefor.de",
-        "toolTip": "jedeschule.codefor.de"
+        "toolTip": "Jede Schule – Karte aller Schulen in Deutschland"
       },
       "searchBar": {
         "placeholder": "Schule oder Adresse suchen",
@@ -214,16 +213,29 @@
             ]
           },
           {
-            "type": "legend"
+            "type": "legend",
+            "icon": "bi-book"
           },
           {
             "type": "customMenuElement",
             "name": "Über diese Karte",
-            "icon": "bi-info-circle",
-            "htmlContent": "<div><h4>Jede Schule – Karte</h4><p>Diese Karte zeigt die Schulen in Deutschland aus dem Open-Data-Projekt <a href='https://jedeschule.codefor.de' target='_blank'>jedeschule.codefor.de</a> (Code for Germany / OK Lab). Die Daten werden wöchentlich aus den Schulverzeichnissen der 16 Bundesländer gesammelt.</p><p><span data-stats><b>Datenstand:</b> 17.10.2026 &middot; <b>Schulen gesamt:</b> 34.136 &middot; <b>davon auf der Karte:</b> 30.861</span></p><p><span data-missing>Schulen ohne Koordinaten fehlen auf der Karte, vor allem in Schleswig-Holstein, Sachsen-Anhalt, Baden-Württemberg, Saarland, Hessen und Thüringen. Die Koordinaten für Niedersachsen stammen vorläufig direkt von NiBiS.</span> Schularten und Trägerschaften sind je Bundesland unterschiedlich bezeichnet und nicht vereinheitlicht.</p><p>Hintergrundkarte: <a href='https://basemap.de' target='_blank'>basemap.de</a> © GeoBasis-DE / BKG, CC BY 4.0. Schul-Symbol: Noto Color Emoji (Google, Apache-2.0). Anwendung: <a href='https://www.masterportal.org' target='_blank'>Masterportal</a> 3.7.</p><p>Datenerhebung: <a href='https://github.com/Datenschule/jedeschule-scraper' target='_blank'>jedeschule-scraper</a>.</p></div>"
-          },
+            "icon": "bi-lightbulb",
+            "htmlContent": "<div><img src='resources/img/schule.svg' alt='' style='max-width:35%;height:auto;display:block;margin:0 auto 20px auto;'><p>Diese Karte zeigt die Schulen in Deutschland aus dem Open-Data-Projekt <a href='https://jedeschule.codefor.de' target='_blank'>jedeschule.codefor.de</a> (Code for Germany / OK Lab). Die Daten werden wöchentlich aus den Schulverzeichnissen der 16 Bundesländer gesammelt.</p><p><span data-stats><b>Datenstand:</b> 17.10.2026 &middot; <b>Schulen gesamt:</b> 34.136 &middot; <b>davon auf der Karte:</b> 30.861</span></p><p><span data-missing>Schulen ohne Koordinaten fehlen auf der Karte, vor allem in Schleswig-Holstein, Sachsen-Anhalt, Baden-Württemberg, Saarland, Hessen und Thüringen. Die Koordinaten für Niedersachsen stammen vorläufig direkt von NiBiS.</span> Schularten und Trägerschaften sind je Bundesland unterschiedlich bezeichnet und nicht vereinheitlicht.</p><p>Hintergrundkarte: <a href='https://basemap.de' target='_blank'>basemap.de</a> © GeoBasis-DE / BKG, CC BY 4.0. Schul-Symbol: Noto Color Emoji (Google, Apache-2.0). Anwendung: <a href='https://www.masterportal.org' target='_blank'>Masterportal</a> 3.7.</p><p>Datenerhebung: <a href='https://github.com/Datenschule/jedeschule-scraper' target='_blank'>jedeschule-scraper</a>.</p><br><h4>Wie kann ich die Karte nutzen?</h4><br><p>Über die <b>Suche</b> im Menü lassen sich Schulen nach Namen und Orte oder Adressen finden. Mit dem <b>Filter</b> wird die Karte auf ein Bundesland, bestimmte Schularten oder Trägerschaften eingeschränkt; die Trefferzahl wird dabei angezeigt. Ein Klick auf eine Schule öffnet die Details mit Adresse und Kontakt; ein Klick auf einen Kreis mit Zahl zoomt in die Gruppe hinein. Unter <b>Legende</b> steht die Bedeutung der Symbole, mit <b>Kartenansicht teilen</b> lässt sich der aktuelle Ausschnitt als Link weitergeben.</p></div>"
+          }
+        ],
+        [
           {
-            "type": "shareView"
+            "type": "shareView",
+            "icon": "bi-share",
+            "name": "common:modules.shareView.name"
+          }
+        ],
+        [
+          {
+            "type": "customMenuElement",
+            "name": "Projekt jedeschule",
+            "icon": "bi-github",
+            "htmlContent": "<div><p><a href='https://jedeschule.codefor.de' target='_blank'><b>jedeschule.codefor.de</b></a> ist ein Open-Data-Projekt von Code for Germany: Die Schulverzeichnisse aller 16 Bundesländer werden regelmäßig zusammengeführt und als offene Daten (CSV, API) bereitgestellt.</p><p>Quellcode: <a href='https://github.com/Datenschule/jedeschule-scraper' target='_blank'>jedeschule-scraper</a> (Datenerhebung) und <a href='https://github.com/Datenschule/jedeschule-api' target='_blank'>jedeschule-api</a>.</p><p>Diese Karte ist ein unabhängiger Aufsatz auf diese Daten und basiert auf dem Berliner Portal <a href='https://github.com/technologiestiftung/berlingaertnert_senmvku_masterportal' target='_blank'>Berlin gärtnert</a> (Technologiestiftung Berlin / ODIS).</p></div>"
           }
         ]
       ]

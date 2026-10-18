@@ -12,7 +12,8 @@ const Config = {
   ],
   layerConf: "./resources/services.json",
   restConf: "./resources/rest-services.json",
-  styleConf: "./resources/style_v3.json",
+  // ?v=... forces browsers to reload the style after changes; bump it when editing
+  styleConf: "./resources/style_v3.json?v=2",
   wfsImgPath: "./resources/img/",
   ignoredKeys: ["BOUNDEDBY", "SHAPE", "SHAPE_LENGTH", "SHAPE_AREA", "OBJECTID", "GLOBALID", "GEOMETRY", "SHP", "SHP_AREA", "SHP_LENGTH", "GEOM", "bl"],
   // Must stay enabled: with enabled:false Masterportal 3.7 hangs at startup.

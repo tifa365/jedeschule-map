@@ -10,7 +10,7 @@
           "imageScale": 0.22,
           "clusterType": "circle",
           "clusterCircleRadius": 16,
-          "clusterCircleFillColor": [31, 90, 170, 0.85],
+          "clusterCircleFillColor": [19, 17, 103, 0.9],
           "clusterCircleStrokeColor": [255, 255, 255, 1],
           "clusterCircleStrokeWidth": 2,
           "clusterTextType": "counter",

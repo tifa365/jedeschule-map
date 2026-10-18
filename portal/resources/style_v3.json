@@ -1,0 +1,27 @@
+[
+  {
+    "styleId": "schulen",
+    "rules": [
+      {
+        "style": {
+          "legendValue": "Schule",
+          "type": "icon",
+          "imageName": "schule.svg",
+          "imageScale": 0.22,
+          "clusterType": "circle",
+          "clusterCircleRadius": 16,
+          "clusterCircleFillColor": [31, 90, 170, 0.85],
+          "clusterCircleStrokeColor": [255, 255, 255, 1],
+          "clusterCircleStrokeWidth": 2,
+          "clusterTextType": "counter",
+          "clusterTextFont": "bold 12px Arial, sans-serif",
+          "clusterTextScale": 1,
+          "clusterTextFillColor": [255, 255, 255, 1],
+          "clusterTextStrokeColor": [0, 0, 0, 0.3],
+          "clusterTextStrokeWidth": 1,
+          "clusterTextOffsetY": 1
+        }
+      }
+    ]
+  }
+]

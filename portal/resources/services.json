@@ -1,0 +1,72 @@
+[
+  {
+    "id": "Basemap",
+    "name": "basemap.de Web Vektor",
+    "epsg": "EPSG:3857",
+    "url": "https://sgx.geodatenzentrum.de/gdz_basemapde_vektor/tiles/v2/bm_web_de_3857/{z}/{x}/{y}.pbf",
+    "typ": "VectorTile",
+    "zDirection": 2,
+    "transparency": 0,
+    "legend": false,
+    "gfiAttributes": "ignore",
+    "gfiTheme": "default",
+    "datasets": [],
+    "vtStyles": [
+      {
+        "id": "basemap_style",
+        "name": "Tagesansicht",
+        "url": "resources/basemap_style.json",
+        "defaultStyle": true
+      },
+      {
+        "id": "basemap_style_dark",
+        "name": "Nachtansicht",
+        "url": "resources/basemap_style_dark_colors.json",
+        "defaultStyle": false
+      }
+    ],
+    "preview": {
+      "src": "./resources/img/vectortile_preview.png"
+    }
+  },
+  {
+    "id": "BasemapRaster",
+    "name": "basemap.de Web Raster",
+    "typ": "WMS",
+    "url": "https://sgx.geodatenzentrum.de/wms_basemapde",
+    "layers": "de_basemapde_web_raster_farbe",
+    "format": "image/png",
+    "version": "1.3.0",
+    "transparent": false,
+    "singleTile": false,
+    "gfiAttributes": "ignore",
+    "legend": false,
+    "datasets": []
+  },
+  {
+    "id": "schulen",
+    "name": "Schulen",
+    "typ": "GeoJSON",
+    "url": "resources/data/schulen.geojson",
+    "crs": "EPSG:4326",
+    "clusterDistance": 40,
+    "searchField": "name",
+    "gfiTheme": "default",
+    "legend": true,
+    "datasets": [],
+    "gfiAttributes": {
+      "name": "Name",
+      "schulart": "Schulart",
+      "traegerschaft": "Trägerschaft",
+      "traeger": "Träger",
+      "adresse": "Adresse",
+      "plz": "PLZ",
+      "ort": "Ort",
+      "bundesland": "Bundesland",
+      "telefon": "Telefon",
+      "email": "E-Mail",
+      "website": "Website",
+      "id": "ID"
+    }
+  }
+]

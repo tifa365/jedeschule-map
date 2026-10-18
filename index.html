@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="description" content="Karte aller Schulen in Deutschland (Daten: jedeschule.codefor.de)" />
+
+    <title>Jede Schule – Karte</title>
+    <link rel="icon" href="./resources/img/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="./resources/img/logo_jedeschule.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="./resources/img/logo_jedeschule.png" />
+    <link rel="stylesheet" href="./mastercode/3_7_0/css/masterportal.css" />
+    <style>
+      /* Layout tweaks taken over from the Berlin gärtnert portal */
+      .mp-menu-logo {
+        justify-content: center !important;
+      }
+      .mp-menu-logo img {
+        max-height: 100px !important;
+      }
+      .mp-menu-logo h1:empty {
+        display: none; /* no title text, so the round logo is centred */
+      }
+      .layer-component-icon-sub-menu { /* no opacity slider in the layer tree */
+        display: none !important;
+      }
+      .layerPreview[title] {
+        pointer-events: none;
+      }
+      #accordion-container-layer-info-contact {
+        display: none;
+      }
+      /* jedeschule.de navy (#131167) instead of Masterportal's green */
+      :root {
+        --bs-primary: #131167;
+        --bs-primary-rgb: 19, 17, 103;
+      }
+      .btn-primary {
+        --bs-btn-color: #ffffff !important;
+        --bs-btn-bg: #131167 !important;
+        --bs-btn-border-color: #131167 !important;
+        --bs-btn-hover-color: #ffffff !important;
+        --bs-btn-hover-bg: #2b2a8a !important;
+        --bs-btn-hover-border-color: #2b2a8a !important;
+        --bs-btn-active-color: #ffffff !important;
+        --bs-btn-active-bg: #0c0b4a !important;
+        --bs-btn-active-border-color: #0c0b4a !important;
+        --bs-btn-disabled-color: #ffffff !important;
+        --bs-btn-disabled-bg: #131167 !important;
+        --bs-btn-disabled-border-color: #131167 !important;
+        --bs-btn-disabled-opacity: 1 !important;
+      }
+      .form-check-input:checked {
+        background-color: #131167;
+        border-color: #131167;
+      }
+      /* The secondary menu only shows school details (opened by clicking the map),
+         so its toggle button with the tools icon is not needed */
+      #secondaryMenu-toggle-button {
+        display: none !important;
+      }
+      /* Its "< Menü" back link would lead to the empty start page (white panel) */
+      #mp-navigation-secondaryMenu {
+        visibility: hidden;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="masterportal-root"></div>
+    <script
+      type="text/javascript"
+      src="./mastercode/3_7_0/js/masterportal.js"
+    ></script>
+    <script>
+      // Hand cursor over schools and cluster circles. Waits until Masterportal has
+      // created the map, then checks the hovered pixel on each pointer move.
+      (function waitForMap() {
+        const map = window.mapCollection && window.mapCollection.getMap("2D");
+        if (!map) return setTimeout(waitForMap, 300);
+        const isSchools = (layer) => layer && layer.get("id") === "schulen";
+        // The right panel has no start page content, so close it whenever it
+        // would show its (empty, white) start page instead of school details.
+        const store = document.querySelector("#masterportal-root").__vue_app__
+          .config.globalProperties.$store;
+        store.watch(
+          (st) => [st.Menu.secondaryMenu.expanded, st.Menu.secondaryMenu.navigation.currentComponent.type],
+          ([expanded, type]) => {
+            if (expanded && type === "root") {
+              store.commit("Menu/setExpandedBySide", { expanded: false, side: "secondaryMenu" });
+            }
+          }
+        );
+        map.on("pointermove", (evt) => {
+          if (evt.dragging) return;
+          const hit = map.hasFeatureAtPixel(evt.pixel, { layerFilter: isSchools });
+          map.getViewport().style.cursor = hit ? "pointer" : "";
+        });
+      })();
+    </script>
+  </body>
+</html>

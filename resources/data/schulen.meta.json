@@ -1,0 +1,78 @@
+{
+  "generated": "2026-10-18",
+  "data_date": "2026-10-17",
+  "source": "cache/latest.csv",
+  "ni_coords": true,
+  "total": 34136,
+  "mapped": 30861,
+  "dropped": {
+    "no_coords": 3263,
+    "outside_bbox": 12
+  },
+  "per_state": {
+    "BB": {
+      "total": 972,
+      "mapped": 966
+    },
+    "BE": {
+      "total": 951,
+      "mapped": 950
+    },
+    "BW": {
+      "total": 6087,
+      "mapped": 5553
+    },
+    "BY": {
+      "total": 4392,
+      "mapped": 4392
+    },
+    "HB": {
+      "total": 260,
+      "mapped": 256
+    },
+    "HE": {
+      "total": 2101,
+      "mapped": 1862
+    },
+    "HH": {
+      "total": 561,
+      "mapped": 556
+    },
+    "MV": {
+      "total": 565,
+      "mapped": 563
+    },
+    "NI": {
+      "total": 3142,
+      "mapped": 3079
+    },
+    "NW": {
+      "total": 5675,
+      "mapped": 5668
+    },
+    "RP": {
+      "total": 1654,
+      "mapped": 1651
+    },
+    "SH": {
+      "total": 2029,
+      "mapped": 1017
+    },
+    "SL": {
+      "total": 731,
+      "mapped": 374
+    },
+    "SN": {
+      "total": 2107,
+      "mapped": 2102
+    },
+    "ST": {
+      "total": 1784,
+      "mapped": 857
+    },
+    "TH": {
+      "total": 1125,
+      "mapped": 1015
+    }
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "portalConfig": {
+    "map": {
+      "baselayerSwitcher": {
+        "active": true
+      },
+      "controls": {
+        "zoom": true,
+        "orientation": {
+          "zoomMode": "once"
+        }
+      },
+      "mapView": {
+        "backgroundImage": "./resources/img/blank.png",
+        "epsg": "EPSG:3857",
+        "extent": [
+          600000,
+          5900000,
+          1750000,
+          7450000
+        ],
+        "startCenter": [
+          1157000,
+          6650000
+        ],
+        "startZoomLevel": 1,
+        "options": [
+          {
+            "resolution": 2116.670323667284,
+            "scale": 8000000,
+            "zoomLevel": 0
+          },
+          {
+            "resolution": 1058.335161833642,
+            "scale": 4000000,
+            "zoomLevel": 1
+          },
+          {
+            "resolution": 529.167580916821,
+            "scale": 2000000,
+            "zoomLevel": 2
+          },
+          {
+            "resolution": 264.5837904584105,
+            "scale": 1000000,
+            "zoomLevel": 3
+          },
+          {
+            "resolution": 132.29189522920524,
+            "scale": 500000,
+            "zoomLevel": 4
+          },
+          {
+            "resolution": 66.14579761460263,
+            "scale": 250000,
+            "zoomLevel": 5
+          },
+          {
+            "resolution": 26.458319045841044,
+            "scale": 100000,
+            "zoomLevel": 6
+          },
+          {
+            "resolution": 13.229159522920522,
+            "scale": 50000,
+            "zoomLevel": 7
+          },
+          {
+            "resolution": 6.614579761460261,
+            "scale": 25000,
+            "zoomLevel": 8
+          },
+          {
+            "resolution": 2.6458319045841048,
+            "scale": 10000,
+            "zoomLevel": 9
+          },
+          {
+            "resolution": 1.3229159522920524,
+            "scale": 5000,
+            "zoomLevel": 10
+          },
+          {
+            "resolution": 0.6614579761460262,
+            "scale": 2500,
+            "zoomLevel": 11
+          },
+          {
+            "resolution": 0.2645831904584105,
+            "scale": 1000,
+            "zoomLevel": 12
+          }
+        ]
+      },
+      "getFeatureInfo": {
+        "highlightVectorRules": {
+          "image": {
+            "scale": 1.5
+          },
+          "fill": {
+            "color": [
+              19,
+              17,
+              103,
+              0.4
+            ]
+          },
+          "stroke": {
+            "width": 2,
+            "color": [
+              19,
+              17,
+              103,
+              1
+            ]
+          }
+        },
+        "hideMapMarkerOnVectorHighlight": true
+      },
+      "treeType": "light"
+    },
+    "portalFooter": {
+      "urls": [
+        {
+          "bezeichnung": "Daten: ",
+          "url": "https://jedeschule.codefor.de",
+          "alias": "jedeschule.codefor.de",
+          "alias_mobile": "jedeschule"
+        },
+        {
+          "bezeichnung": "Karte: ",
+          "url": "https://basemap.de",
+          "alias": "© GeoBasis-DE / BKG, basemap.de",
+          "alias_mobile": "basemap.de"
+        }
+      ]
+    },
+    "mainMenu": {
+      "expanded": true,
+      "title": {
+        "text": "",
+        "logo": "./resources/img/logo_jedeschule.png",
+        "link": "https://jedeschule.de",
+        "toolTip": "JedeSchule.de"
+      },
+      "searchBar": {
+        "placeholder": "Schule oder Adresse suchen",
+        "searchInterfaces": [
+          {
+            "type": "visibleVector",
+            "resultEvents": {
+              "onClick": [
+                "openGetFeatureInfo",
+                "setMarker",
+                "zoomToResult"
+              ],
+              "onHover": [
+                "setMarker"
+              ]
+            }
+          },
+          {
+            "type": "komootPhoton",
+            "minChars": 3,
+            "serviceId": "11",
+            "limit": 10,
+            "lang": "de",
+            "lat": 51.1,
+            "lon": 10.4,
+            "bbox": "5.8,47.2,15.1,55.1"
+          }
+        ]
+      },
+      "sections": [
+        [
+          {
+            "type": "filter",
+            "name": "Filter",
+            "icon": "bi-funnel",
+            "layerSelectorVisible": false,
+            "liveZoomToFeatures": false,
+            "layers": [
+              {
+                "layerId": "schulen",
+                "title": "Schulen filtern",
+                "strategy": "active",
+                "showHits": true,
+                "snippets": [
+                  {
+                    "attrName": "bundesland",
+                    "type": "dropdown",
+                    "title": "Bundesland",
+                    "multiselect": false,
+                    "placeholder": "Alle Bundesländer"
+                  },
+                  {
+                    "attrName": "schulart",
+                    "type": "dropdown",
+                    "title": "Schulart",
+                    "multiselect": true,
+                    "placeholder": "Alle Schularten"
+                  },
+                  {
+                    "attrName": "traegerschaft",
+                    "type": "dropdown",
+                    "title": "Trägerschaft",
+                    "multiselect": true,
+                    "placeholder": "Alle"
+                  }
+                ],
+                "paging": 10000
+              }
+            ]
+          },
+          {
+            "type": "legend",
+            "icon": "bi-book"
+          },
+          {
+            "type": "customMenuElement",
+            "name": "Über diese Karte",
+            "icon": "bi-lightbulb",
+            "htmlContent": "<div><img src='resources/img/schule.svg' alt='' style='max-width:35%;height:auto;display:block;margin:0 auto 20px auto;'><p>Diese Karte zeigt die Schulen in Deutschland aus dem Open-Data-Projekt <a href='https://jedeschule.codefor.de' target='_blank'>jedeschule.codefor.de</a> (Code for Germany / OK Lab). Die Daten werden wöchentlich aus den Schulverzeichnissen der 16 Bundesländer gesammelt.</p><p><span data-stats><b>Datenstand:</b> 17.10.2026 &middot; <b>Schulen gesamt:</b> 34.136 &middot; <b>davon auf der Karte:</b> 30.861</span></p><p><span data-missing>Schulen ohne Koordinaten fehlen auf der Karte, vor allem in Schleswig-Holstein, Sachsen-Anhalt, Baden-Württemberg, Saarland, Hessen und Thüringen. Die Koordinaten für Niedersachsen stammen vorläufig direkt von NiBiS.</span> Schularten und Trägerschaften sind je Bundesland unterschiedlich bezeichnet und nicht vereinheitlicht.</p><p>Hintergrundkarte: <a href='https://basemap.de' target='_blank'>basemap.de</a> © GeoBasis-DE / BKG, CC BY 4.0. Schul-Symbol: Noto Color Emoji (Google, Apache-2.0). Anwendung: <a href='https://www.masterportal.org' target='_blank'>Masterportal</a> 3.7.</p><p>Datenerhebung: <a href='https://github.com/Datenschule/jedeschule-scraper' target='_blank'>jedeschule-scraper</a>.</p><br><h4>Wie kann ich die Karte nutzen?</h4><br><p>Über die <b>Suche</b> im Menü lassen sich Schulen nach Namen und Orte oder Adressen finden. Mit dem <b>Filter</b> wird die Karte auf ein Bundesland, bestimmte Schularten oder Trägerschaften eingeschränkt; die Trefferzahl wird dabei angezeigt. Ein Klick auf eine Schule öffnet die Details mit Adresse und Kontakt; ein Klick auf einen Kreis mit Zahl zoomt in die Gruppe hinein. Unter <b>Legende</b> steht die Bedeutung der Symbole, mit <b>Kartenansicht teilen</b> lässt sich der aktuelle Ausschnitt als Link weitergeben.</p></div>"
+          }
+        ],
+        [
+          {
+            "type": "shareView",
+            "icon": "bi-share",
+            "name": "common:modules.shareView.name"
+          }
+        ],
+        [
+          {
+            "type": "customMenuElement",
+            "name": "Projekt jedeschule",
+            "icon": "bi-github",
+            "htmlContent": "<div><p><a href='https://jedeschule.codefor.de' target='_blank'><b>jedeschule.codefor.de</b></a> ist ein Open-Data-Projekt von Code for Germany: Die Schulverzeichnisse aller 16 Bundesländer werden regelmäßig zusammengeführt und als offene Daten (CSV, API) bereitgestellt.</p><p>Quellcode: <a href='https://github.com/Datenschule/jedeschule-scraper' target='_blank'>jedeschule-scraper</a> (Datenerhebung) und <a href='https://github.com/Datenschule/jedeschule-api' target='_blank'>jedeschule-api</a>.</p><p>Diese Karte ist ein unabhängiger Aufsatz auf diese Daten und basiert auf dem Berliner Portal <a href='https://github.com/technologiestiftung/berlingaertnert_senmvku_masterportal' target='_blank'>Berlin gärtnert</a> (Technologiestiftung Berlin / ODIS).</p></div>"
+          }
+        ]
+      ]
+    },
+    "tree": {
+      "singleBaselayer": true,
+      "allowBaselayerDrag": false,
+      "addLayerButton": {
+        "active": false
+      },
+      "highlightedFeatures": {
+        "active": false
+      }
+    },
+    "secondaryMenu": {
+      "expanded": false,
+      "sections": [
+        []
+      ]
+    }
+  },
+  "layerConfig": {
+    "baselayer": {
+      "elements": [
+        {
+          "id": "BasemapRaster",
+          "visibility": true
+        },
+        {
+          "id": "Basemap",
+          "styleId": "basemap_style",
+          "visibility": false
+        }
+      ]
+    },
+    "subjectlayer": {
+      "elements": [
+        {
+          "id": "schulen",
+          "name": "Schulen",
+          "styleId": "schulen",
+          "visibility": true,
+          "showInLayerTree": true
+        }
+      ]
+    }
+  }
+}

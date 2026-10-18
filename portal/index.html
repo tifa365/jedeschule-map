@@ -65,6 +65,10 @@
       #secondaryMenu-toggle-button {
         display: none !important;
       }
+      /* Its "< Menü" back link would lead to the empty start page (white panel) */
+      #mp-navigation-secondaryMenu {
+        visibility: hidden;
+      }
     </style>
   </head>
 
@@ -81,6 +85,18 @@
         const map = window.mapCollection && window.mapCollection.getMap("2D");
         if (!map) return setTimeout(waitForMap, 300);
         const isSchools = (layer) => layer && layer.get("id") === "schulen";
+        // The right panel has no start page content, so close it whenever it
+        // would show its (empty, white) start page instead of school details.
+        const store = document.querySelector("#masterportal-root").__vue_app__
+          .config.globalProperties.$store;
+        store.watch(
+          (st) => [st.Menu.secondaryMenu.expanded, st.Menu.secondaryMenu.navigation.currentComponent.type],
+          ([expanded, type]) => {
+            if (expanded && type === "root") {
+              store.commit("Menu/setExpandedBySide", { expanded: false, side: "secondaryMenu" });
+            }
+          }
+        );
         map.on("pointermove", (evt) => {
           if (evt.dragging) return;
           const hit = map.hasFeatureAtPixel(evt.pixel, { layerFilter: isSchools });
